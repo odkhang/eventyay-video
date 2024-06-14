@@ -20,14 +20,6 @@ services:
       - VENUELESS_DATA_DIR=/data
       - VENUELESS_MEDIA_URL=http://localhost:8375/media/
       - VENUELESS_REDIS_USE_PUBSUB=true
-      - VENUELESS_DB_TYPE=postgresql
-      - VENUELESS_DB_NAME=venueless
-      - VENUELESS_DB_USER=venueless
-      - VENUELESS_DB_PASS=venueless
-      - VENUELESS_DB_HOST=db
-      - VENUELESS_REDIS_URLS=redis://redis:6379/0,redis://redis1:6379/0
-      - VENUELESS_DATA_DIR=/data
-      - VENUELESS_MEDIA_URL=http://localhost:8375/media/
     volumes:
       - /etc/venueless:/etc/venueless
       - /data:/data
