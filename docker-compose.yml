@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   venueless:
-    image: odkhang/eventyay-video:development-latest
+    image: eventyay/eventyay-video:development-latest
     container_name: venueless
     ports:
       - "80:80"
@@ -27,7 +27,7 @@ services:
     command: ["all"]
 
   server:
-    image: odkhang/eventyay-video:development-server
+    image: eventyay/eventyay-video:development-server
     ports:
       - "8375:8375"
     volumes:
@@ -49,7 +49,7 @@ services:
     entrypoint: ["bash", "/app/docker-dev-entrypoint.sh"]
 
   celery:
-    image: odkhang/eventyay-video:development-server
+    image: eventyay/eventyay-video:development-server
     volumes:
       - appdata:/data
     environment:
@@ -68,7 +68,7 @@ services:
     entrypoint: ["bash", "/app/docker-dev-entrypoint-celery.sh"]
 
   webapp:
-    image: odkhang/eventyay-video:development-webapp
+    image: eventyay/eventyay-video:development-webapp
     ports:
       - "8880:8880"
     command: ["npm", "start", "--", "--host", "0.0.0.0"]
