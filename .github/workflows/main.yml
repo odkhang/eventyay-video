@@ -2,7 +2,7 @@ name: Main workflow
 on:
   push:
     branches:
-      - feature-94
+      - development
   workflow_dispatch:
 jobs:
   push_to_registry:
@@ -24,7 +24,7 @@ jobs:
         context: ./server
         file: ./server/Dockerfile-dev
         push: true
-        tags: odkhang/eventyay-video:development-server
+        tags: eventyay/eventyay-video:development-server
 
     - name: Build and push webapp Docker image
       uses: docker/build-push-action@v2
@@ -32,7 +32,7 @@ jobs:
         context: ./webapp
         file: ./webapp/Dockerfile-dev
         push: true
-        tags: odkhang/eventyay-video:development-webapp
+        tags: eventyay/eventyay-video:development-webapp
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
@@ -40,7 +40,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: odkhang/eventyay-video:development-latest
+        tags: eventyay/eventyay-video:development-latest
         
   deploy:
     name: Deploy to server
@@ -57,4 +57,4 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" | ssh-add -
         ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
         scp docker-compose.yml "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/eventyay/eventyay-videos"
-        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "cd /home/eventyay/eventyay-videos && sudo docker pull odkhang/eventyay-video:development-server && sudo docker pull odkhang/eventyay-video:development-webapp && sudo docker pull odkhang/eventyay-video:development-latest && sudo docker-compose up -d"
+        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "cd /home/eventyay/eventyay-videos && sudo docker pull eventyay/eventyay-video:development-server && sudo docker pull eventyay/eventyay-video:development-webapp && sudo docker pull eventyay/eventyay-video:development-latest && sudo docker-compose up -d"
