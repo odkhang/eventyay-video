@@ -1,30 +1,30 @@
 version: '3.4'
 
 services:
-  # venueless:
-  #   image: eventyay/eventyay-video:${TAG}-latest
-  #   container_name: venueless
-  #   ports:
-  #     - "80:80"
-  #   environment:
-  #     - DJANGO_SETTINGS_MODULE=venueless.settings
-  #     - LC_ALL=C.UTF-8
-  #     - IPYTHONDIR=/data/.ipython
-  #     - VENUELESS_COMMIT_SHA=${COMMIT}
-  #     - VENUELESS_DB_TYPE=postgresql
-  #     - VENUELESS_DB_NAME=$POSTGRES_DB
-  #     - VENUELESS_DB_USER=$POSTGRES_USER
-  #     - VENUELESS_DB_PASS=$POSTGRES_PASSWD
-  #     - VENUELESS_DB_HOST=eventyay-db
-  #     - VENUELESS_REDIS_URLS=redis://redis:6379/0,redis://redis1:6379/0
-  #     - VENUELESS_DATA_DIR=/data
-  #     - VENUELESS_MEDIA_URL=http://localhost:8375/media/
-  #     - VENUELESS_REDIS_USE_PUBSUB=true
-  #   volumes:
-  #     - /etc/venueless:/etc/venueless
-  #     - /data:/data
-  #   entrypoint: ["/usr/local/bin/venueless"]
-  #   command: ["all"]
+  venueless:
+    image: odkhang/eventyay-video:${TAG}-latest
+    container_name: venueless
+    ports:
+      - "80:80"
+    environment:
+      - DJANGO_SETTINGS_MODULE=venueless.settings
+      - LC_ALL=C.UTF-8
+      - IPYTHONDIR=/data/.ipython
+      - VENUELESS_COMMIT_SHA=${COMMIT}
+      - VENUELESS_DB_TYPE=postgresql
+      - VENUELESS_DB_NAME=${POSTGRES_DB}
+      - VENUELESS_DB_USER=${POSTGRES_USER}
+      - VENUELESS_DB_PASS=${POSTGRES_PASSWD}
+      - VENUELESS_DB_HOST=eventyay-db
+      - VENUELESS_REDIS_URLS=redis://redis:6379/0,redis://redis1:6379/0
+      - VENUELESS_DATA_DIR=/data
+      - VENUELESS_MEDIA_URL=http://localhost:8375/media/
+      - VENUELESS_REDIS_USE_PUBSUB=true
+    volumes:
+      - /etc/venueless:/etc/venueless
+      - /data:/data
+    entrypoint: ["/usr/local/bin/venueless"]
+    command: ["all"]
 
   # server:
   #   image: eventyay/eventyay-video:${TAG}-server
@@ -34,9 +34,9 @@ services:
   #     - appdata:/data
   #   environment:
   #     - VENUELESS_DB_TYPE=postgresql
-  #     - VENUELESS_DB_NAME=$POSTGRES_DB
-  #     - VENUELESS_DB_USER=$POSTGRES_USER
-  #     - VENUELESS_DB_PASS=$POSTGRES_PASSWD
+  #     - VENUELESS_DB_NAME=${POSTGRES_DB}
+  #     - VENUELESS_DB_USER=${POSTGRES_USER}
+  #     - VENUELESS_DB_PASS=${POSTGRES_PASSWD}
   #     - VENUELESS_DB_HOST=eventyay-db
   #     - VENUELESS_REDIS_URLS=redis://redis:6379/0,redis://redis1:6379/0
   #     - VENUELESS_DATA_DIR=/data
@@ -48,24 +48,24 @@ services:
   #     - redis1
   #   entrypoint: ["bash", "/app/docker-dev-entrypoint.sh"]
 
-  celery:
-    image: odkhang/eventyay-video:${TAG}-server
-    volumes:
-      - appdata:/data
-    environment:
-      - VENUELESS_DB_TYPE=postgresql
-      - VENUELESS_DB_NAME=$POSTGRES_DB
-      - VENUELESS_DB_USER=$POSTGRES_USER
-      - VENUELESS_DB_PASS=$POSTGRES_PASSWD
-      - VENUELESS_DB_HOST=eventyay-db
-      - VENUELESS_REDIS_URLS=redis://redis:6379/0,redis://redis1:6379/0
-      - VENUELESS_DATA_DIR=/data
-      - VENUELESS_MEDIA_URL=http://localhost:8375/media/
-    depends_on:
-      - eventyay-db
-      - redis
-      - redis1
-    entrypoint: ["bash", "/app/docker-dev-entrypoint-celery.sh"]
+  # celery:
+  #   image: eventyay/eventyay-video:${TAG}-server
+  #   volumes:
+  #     - appdata:/data
+  #   environment:
+  #     - VENUELESS_DB_TYPE=postgresql
+  #     - VENUELESS_DB_NAME=${POSTGRES_DB}
+  #     - VENUELESS_DB_USER=${POSTGRES_USER}
+  #     - VENUELESS_DB_PASS=${POSTGRES_PASSWD}
+  #     - VENUELESS_DB_HOST=eventyay-db
+  #     - VENUELESS_REDIS_URLS=redis://redis:6379/0,redis://redis1:6379/0
+  #     - VENUELESS_DATA_DIR=/data
+  #     - VENUELESS_MEDIA_URL=http://localhost:8375/media/
+  #   depends_on:
+  #     - eventyay-db
+  #     - redis
+  #     - redis1
+  #   entrypoint: ["bash", "/app/docker-dev-entrypoint-celery.sh"]
 
   # webapp:
   #   image: eventyay/eventyay-video:${TAG}-webapp
@@ -91,8 +91,8 @@ services:
     environment:
       - POSTGRES_INITDB_ARGS=--auth-host=md5
       - POSTGRES_HOST_AUTH_METHOD=md5
-      - POSTGRES_USER=$POSTGRES_USER
-      - POSTGRES_PASSWORD=$POSTGRES_PASSWD
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWD}
 
 volumes:
   postgres_data:
