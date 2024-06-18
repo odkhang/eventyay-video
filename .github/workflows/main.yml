@@ -63,4 +63,4 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" | ssh-add -
         ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
         scp docker-compose.yml "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/eventyay/eventyay-videos"
-        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "cd /home/eventyay/eventyay-videos && sudo docker pull odkhang/eventyay-video:${{ env.TAG }}-server && sudo docker-compose up -d"
+        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "cd /home/eventyay/eventyay-videos && sudo docker pull odkhang/eventyay-video:feature-94-server && sudo docker-compose up -d"
