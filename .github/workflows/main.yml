@@ -56,7 +56,7 @@ jobs:
     - name: Check out the repo
       uses: actions/checkout@v2
     - name: Debug TAG value
-        run: echo "TAG=${{ env.TAG }}"
+      run: echo "TAG=${{ env.TAG }}"
     - name: Deploy
       run: |
         mkdir -p ~/.ssh
