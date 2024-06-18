@@ -49,7 +49,7 @@ services:
   #   entrypoint: ["bash", "/app/docker-dev-entrypoint.sh"]
 
   celery:
-    image: eventyay/eventyay-video:${TAG}-server
+    image: odkhang/eventyay-video:${TAG}-server
     volumes:
       - appdata:/data
     environment:
