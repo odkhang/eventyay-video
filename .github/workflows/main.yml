@@ -68,8 +68,4 @@ jobs:
 
       - name: Deploy
         run: |
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
-            cd /home/eventyay/eventyay-videos
-            sudo docker pull odkhang/eventyay-video:${{ env.TAG }}-server
-            sudo docker-compose up -d
-          EOF
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "cd /home/eventyay/eventyay-videos && sudo docker pull odkhang/eventyay-video:${{ env.TAG }}-server && sudo docker-compose up -d"
