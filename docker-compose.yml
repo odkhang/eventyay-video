@@ -81,7 +81,7 @@ services:
     image: redis:latest
     container_name: redis1
 
-  db:
+  eventyay-db:
     image: postgres:15
     container_name: eventyay-db
     ports:
