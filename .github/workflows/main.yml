@@ -55,6 +55,9 @@ jobs:
     steps:
     - name: Check out the repo
       uses: actions/checkout@v2
+    - name: Set up Docker tag
+      id: vars
+      run: echo "TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
     - name: Debug TAG value
       run: echo "TAG=${{ env.TAG }}"
     - name: Deploy
